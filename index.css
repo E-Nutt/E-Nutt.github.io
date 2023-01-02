@@ -1,5 +1,17 @@
+:root{
+    --darkorange :#F27630;
+    --lightorange : #F09629;
+    --bauyellow :#F1D030;
+    --baured : #F42E3F;
+    --baubrown: #F2D79F;
+}
+
+body{
+    background: var(--baubrown) ;
+}
+
 #pertama{
     font-size: larger;
-    color: salmon;
+    color: var(--darkorange);
     font-weight: bold;
 }
