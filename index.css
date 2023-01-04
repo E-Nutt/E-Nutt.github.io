@@ -2,16 +2,15 @@
     box-sizing: border-box;
 }
 
-html{
-   
-}
+
 :root{
     --darkorange :#F27630;
     --lightorange : #F09629;
     --bauyellow :#F1D030;
     --baured : #F42E3F;
     --baubrown: #F2D79F;
-    font-size: 1.75vw;
+    font-size: 1.25vw;
+    --alpha : 80;
 }
 
 body{
@@ -22,22 +21,25 @@ body{
     width: 100%;
     line-height: 1.2;
 }
-.small-headline{
-    font-size: .5rem;
-}
-.medium-headline{
-    font-size: .8rem;
-}
 .big-headline{
-    font-size: 1rem;
+    font-size: 3rem;
     margin: 0;
 }
-.small-text-block{
-    max-width: 30em;
+.medium-headline{
+    font-size: 2.5rem;
+    margin: 0;
+}
+
+.small-headline{
+    font-size: 1.75rem;
+    margin: 0;
+}
+p{
+    font-size: 1.25rem;
+    margin: 0;
 }
 .home-main{
-    padding: 1.5em ;
-    min-height: 100%;
+    padding: 1rem ;
     width: 100%;
 }
 .centered{
@@ -48,7 +50,7 @@ body{
 .grid-container{
     display: grid;
     position: relative;
-    height: 22rem;
+    height: 40rem;
     border: 1px solid black;
     background-color: var(--baubrown);
     grid-template-columns: repeat(8,1fr);
@@ -63,7 +65,9 @@ body{
 .alive{
     background-color: var(--baubrown);
 }
-
+.kill-cell{
+    color: var(--baured);
+}
 .moin-title{
     grid-area: 1/1/2/2;
 }
@@ -83,7 +87,7 @@ body{
 .looking-job{
     grid-area: 3/2/span 2 / span 3;
     text-align: justify;
-    max-width: 35em;
+    padding: 1.25rem;
 }
 .half-alive{
     display: none;
@@ -91,28 +95,40 @@ body{
 /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 600px) {
     :root{
-        font-size: 7.7vw;
+        font-size: 4.23vw;
+    }
+    .home-main{
+        padding: .75rem;
+    }
+    p{
+        font-family: 'inter';
+        font-size: 1rem;
+        line-height: 1.6 rem;
     }
     .grid-container {
-        height: 20rem;
+        height: 45rem;
         grid-template-columns: repeat(3,1fr);
-        grid-template-rows: repeat(6, 1fr);
-    }
-    .small-headline{
-        font-size: .4rem;
-    }
-    .medium-headline{
-        font-size: .6rem;
+        grid-template-rows: repeat(7, 1fr);
     }
     .big-headline{
-        font-size: .8rem;
+        font-size: 2.25rem;
         margin: 0;
     }
+    .medium-headline{
+        font-size: 1.8rem;
+        margin: 0;
+    }
+    .small-headline{
+        font-size: 1.4rem;
+        line-height: 2rem;
+        margin: 0;
+    }
+
     .moin-title{
         grid-area: 1/1/2/1;
     }
     .name-title{
-        grid-area: 3/2/4/span 2;
+        grid-area: 2/2/3/span2;
         text-align: center;
     }
     .based-city{
@@ -121,12 +137,15 @@ body{
         
     }
     .is-me{
-        grid-area: 3/2/4/span 2 ;
+        grid-area: 5/1/6/3 ;
         text-align: center;
+        padding: .8rem;
+        line-break: strict;
     }
     .looking-job{
-        grid-area: 5/1/span 2 / span 3;
+        grid-area: 6/1/span 2 / span 3;
         text-align: center;
+        padding: .75rem;
     }
     .grid-item{
         display: block;
@@ -135,7 +154,7 @@ body{
         display: none;
     }
     .small-text-block{
-        max-width: 17em;
+        max-width: 1.5rem;
         margin: 0;
     }
   }
