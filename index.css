@@ -14,7 +14,7 @@
 }
 
 body{
-    background: var(--baubrown) ;
+    background-color: var(--bauyellow);
     padding: 0;
     margin: 0;
     height: 100%;
@@ -52,18 +52,13 @@ p{
     position: relative;
     height: 40rem;
     border: 1px solid black;
-    background-color: var(--baubrown);
+    background-color: var(--bauyellow);
     grid-template-columns: repeat(8,1fr);
     grid-template-rows: repeat(4, 1fr);
 }
-.grid-item{
-    background-color: var(--baubrown);
-}
+
 .grid-cell{
     border: 1px solid black;
-}
-.alive{
-    background-color: var(--baubrown);
 }
 .kill-cell{
     color: var(--baured);
@@ -74,6 +69,7 @@ p{
 .name-title{
     grid-area: 1/4/2/span 2;
     text-align: center;
+    background-color: var(--bauyellow);
 }
 .based-city{
     grid-area: 4/8/5/9;
@@ -86,8 +82,8 @@ p{
 }
 .looking-job{
     grid-area: 3/2/span 2 / span 3;
-    text-align: justify;
-    padding: 1.25rem;
+    text-align: center;
+    padding: 1.5rem;
 }
 .half-alive{
     display: none;
