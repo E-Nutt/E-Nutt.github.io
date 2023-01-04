@@ -1,17 +1,141 @@
+*{
+    box-sizing: border-box;
+}
+
+html{
+   
+}
 :root{
     --darkorange :#F27630;
     --lightorange : #F09629;
     --bauyellow :#F1D030;
     --baured : #F42E3F;
     --baubrown: #F2D79F;
+    font-size: 1.75vw;
 }
 
 body{
     background: var(--baubrown) ;
+    padding: 0;
+    margin: 0;
+    height: 100%;
+    width: 100%;
+    line-height: 1.2;
+}
+.small-headline{
+    font-size: .5rem;
+}
+.medium-headline{
+    font-size: .8rem;
+}
+.big-headline{
+    font-size: 1rem;
+    margin: 0;
+}
+.small-text-block{
+    max-width: 30em;
+}
+.home-main{
+    padding: 1.5em ;
+    min-height: 100%;
+    width: 100%;
+}
+.centered{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.grid-container{
+    display: grid;
+    position: relative;
+    height: 22rem;
+    border: 1px solid black;
+    background-color: var(--baubrown);
+    grid-template-columns: repeat(8,1fr);
+    grid-template-rows: repeat(4, 1fr);
+}
+.grid-item{
+    background-color: var(--baubrown);
+}
+.grid-cell{
+    border: 1px solid black;
+}
+.alive{
+    background-color: var(--baubrown);
 }
 
-#pertama{
-    font-size: larger;
-    color: var(--darkorange);
-    font-weight: bold;
+.moin-title{
+    grid-area: 1/1/2/2;
 }
+.name-title{
+    grid-area: 1/4/2/span 2;
+    text-align: center;
+}
+.based-city{
+    grid-area: 4/8/5/9;
+    text-align: center;
+    
+}
+.is-me{
+    grid-area: 3/6/4/span 2 ;
+    text-align: center;
+}
+.looking-job{
+    grid-area: 3/2/span 2 / span 3;
+    text-align: justify;
+    max-width: 35em;
+}
+.half-alive{
+    display: none;
+}
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+    :root{
+        font-size: 7.7vw;
+    }
+    .grid-container {
+        height: 20rem;
+        grid-template-columns: repeat(3,1fr);
+        grid-template-rows: repeat(6, 1fr);
+    }
+    .small-headline{
+        font-size: .4rem;
+    }
+    .medium-headline{
+        font-size: .6rem;
+    }
+    .big-headline{
+        font-size: .8rem;
+        margin: 0;
+    }
+    .moin-title{
+        grid-area: 1/1/2/1;
+    }
+    .name-title{
+        grid-area: 3/2/4/span 2;
+        text-align: center;
+    }
+    .based-city{
+        grid-area: 1/3/2/4;
+        text-align: center;
+        
+    }
+    .is-me{
+        grid-area: 3/2/4/span 2 ;
+        text-align: center;
+    }
+    .looking-job{
+        grid-area: 5/1/span 2 / span 3;
+        text-align: center;
+    }
+    .grid-item{
+        display: block;
+    }
+    .kill-cell{
+        display: none;
+    }
+    .small-text-block{
+        max-width: 17em;
+        margin: 0;
+    }
+  }
