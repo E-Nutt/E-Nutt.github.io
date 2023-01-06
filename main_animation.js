@@ -88,7 +88,7 @@ mm.add("(min-width:600px)", () => {
 
     var nameGrid = document.querySelector(".name-title")
     var nicknames = gsap.utils.toArray(".nickname");
-    const loop = horizontalLoop(nicknames, {paused: true, repeat:-1})
+    const loop = horizontalLoop(nicknames, {paused: true, repeat:-1, paddingRight: 15})
     nameGrid.addEventListener("mouseenter", () => loop.play())
     nameGrid.addEventListener("mouseleave", () => loop.pause())
 })
@@ -101,7 +101,7 @@ mm.add("(max-width:600px)", () => {
     .to(".greet", {y : 100, stagger:1},1)
 
     var nicknames = gsap.utils.toArray(".nickname");
-    const loop1 = horizontalLoop(nicknames, {repeat: -1})
+    const loop1 = horizontalLoop(nicknames, {repeat: -1,paddingRight: 7})
     loop1.play();
 }) 
 
