@@ -66,9 +66,11 @@ let mm = gsap.matchMedia();
 
 /* ------------------------for desktop ----------------------------------------*/
 mm.add("(min-width:600px)", () => {
+/* greetings */
     var tl = gsap.timeline({repeat: 30, yoyo:true, repeatDelay:0.7})
     .from(".greet", {y : -180, stagger:1, ease :"back"})
     .to(".greet", {y : 180, stagger:1},1)
+/* end of greetings */
 
 /* name-title */
     var nameGrid = document.querySelector(".name-title")
@@ -121,36 +123,21 @@ mm.add("(max-width:600px)", () => {
 /* end of name-title */
 
 /* frontendtrigger */
-let frontendSliderAnim = gsap.timeline({paused:true}).to(".is-me", {opacity : 1})
+let frontendSliderAnim = gsap.timeline({paused:true}).to(".is-me", {backgroundColor:"#F42E3F"})
 var triggerFrontend = document.querySelector("#trigger-frontend-mobile")
 triggerFrontend.onpointerdown = beginAnimate
 triggerFrontend.onpointerup = stopAnimate
 
-function beginAnimate(e) {
-    triggerFrontend.onpointermove = animate;
-    triggerFrontend.setPointerCapture(e.pointerId);
-  }
-  
-  function stopAnimate(e) {
-    triggerFrontend.onpointermove = null;
-    triggerFrontend.releasePointerCapture(e.pointerId);
-  }
-  
-  function animate(e) {
+function beginAnimate() {
+    frontendSliderAnim.progress(this.value).pause();
     frontendSliderAnim.play();
   }
   
+  function stopAnimate() {
+  frontendSliderAnim.reverse()
+  }
   
-  triggerFrontend.onpointerdown = beginAnimate;
-  triggerFrontend.onpointerup = stopAnimate;
-  
-/* 
-triggerFrontend.addEventListener("mouseenter", frontendSliderAnim.play())
-triggerFrontend.addEventListener("mouseleave", frontendSliderAnim.restart()) */
-
-
 /* end of frontendtrigger */
-
 }) 
 /* ------------------------ end for mobile ----------------------------------------*/
 
