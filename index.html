@@ -22,7 +22,9 @@
                 <div class="grid-cell grid-item half-alive" style="grid-area: 3/1/4/3;">21</div>
                 <div class="grid-cell grid-item kill-cell" style="grid-area: 1/2/3/4;">9</div>
                 <div class="grid-cell grid-item kill-cell" style="grid-area: 2/1/span2/2;">10</div>
-                <div class="grid-cell grid-item kill-cell" style="grid-area: 2/4/3/5;">11</div>
+                <div class="grid-cell grid-item centered kill-cell" id="trigger-frontend" style="grid-area: 2/4/3/5;">
+                    <input autocomplete="off" id="progressSlider" type="range" min="0" max="1" value="0" step="0.1"/>
+                </div>
                 <div class="grid-cell grid-item kill-cell" style="grid-area: 1/7/2/9;">12</div>
                 <div class="grid-cell grid-item kill-cell" style="grid-area: 1/6/2/7;">15</div>
                 <div class="grid-cell grid-item kill-cell" style="grid-area: 2/7/3/8;">13</div>
@@ -32,7 +34,7 @@
                 <div class="grid-cell grid-item kill-cell" style="grid-area: 4/5/5/7;">18</div>
                 <div class="grid-cell grid-item kill-cell" style="grid-area: 4/7/5/8;">19</div>
                 <div class="grid-cell grid-item kill-cell" style="grid-area: 3/8/4/9;">20</div>
-                <div class="grid-cell grid-item half-alive" style="grid-area: 5/3/6/4;">21</div>
+                <div class="grid-cell grid-item half-alive" id="trigger-frontend-mobile" style="grid-area: 5/3/6/4;">21</div>
 
                     <div class="grid-cell grid-item centered alive moin-title">
                             <h3 class="big-headline greet" style="font-family:'Chakra Petch'; font-weight: 600;">Moin!</h3>
@@ -45,6 +47,7 @@
                             <h3 class="big-headline nickname" id="raf" style="font-family:'Chakra Petch';font-weight: 600;">i'm dani</h3>
                             <h3 class="big-headline nickname" id="raf" style="font-family:'Chakra Petch';font-weight: 600;">I'm e-nut</h3>
                             <h3 class="big-headline nickname" id="raf" style="font-family:'Chakra Petch';font-weight: 600;">i'm dani</h3>
+                            <h3 class="big-headline nickname" id="raf" style="font-family:'Chakra Petch';font-weight: 600;">I'm e-nut</h3>
                         </div>
                      </div>
                     <div class="grid-cell centered alive based-city">
@@ -53,9 +56,10 @@
                         <img src="img/ubahn.svg" alt="U-bahn" class="based" id="ubahn" style="height: 3rem;">
                     </div>
                     <div class="grid-cell centered alive is-me">
-                        <h3 class="small-headline" style="font-family:'Chakra Petch';font-weight: 500;">
-                            Front End developer with an eye of UI designer
-                        </h3>
+                            <h3 class="small-headline" style="font-family:'Chakra Petch';font-weight: 500;">
+                                Front End developer with an eye of UI designer
+                            </h3>
+                            
                     </div>
                     <div class="grid-cell centered alive looking-job">
                         <h3 class="small-headline" style="font-family:'Chakra Petch';font-weight: 500;">

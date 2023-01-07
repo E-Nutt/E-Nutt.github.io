@@ -1,21 +1,4 @@
-/* -----------------------------------function helper---------------------------- */
-
-/*
-This helper function makes a group of elements animate along the x-axis in a seamless, responsive loop.
-
-Features:
- - Uses xPercent so that even if the widths change (like if the window gets resized), it should still work in most cases.
- - When each item animates to the left or right enough, it will loop back to the other side
- - Optionally pass in a config object with values like "speed" (default: 1, which travels at roughly 100 pixels per second), paused (boolean),  repeat, reversed, and paddingRight.
- - The returned timeline will have the following methods added to it:
-   - next() - animates to the next element using a timeline.tweenTo() which it returns. You can pass in a vars object to control duration, easing, etc.
-   - previous() - animates to the previous element using a timeline.tweenTo() which it returns. You can pass in a vars object to control duration, easing, etc.
-   - toIndex() - pass in a zero-based index value of the element that it should animate to, and optionally pass in a vars object to control duration, easing, etc. Always goes in the shortest 
-   - current() - returns the current index (if an animation is in-progress, it reflects the final index)
-   - times - an Array of the times on the timeline where each element hits the "starting" spot. There's also a label added accordingly, so "label1" is when the 2nd element reaches the start.
- */
-
-  
+/* -----------------------------------function helper---------------------------- */ 
    function horizontalLoop(items, config) {
 	items = gsap.utils.toArray(items);
 	config = config || {};
@@ -73,25 +56,55 @@ Features:
 	}
 	return tl;
 }
-
 /* ----------------------------- end function helper ---------------------------*/
 
+
+    
 gsap.set([".greet"], {autoAlpha:1})
 
 let mm = gsap.matchMedia();
-    
+
 /* ------------------------for desktop ----------------------------------------*/
 mm.add("(min-width:600px)", () => {
-    var tl = gsap.timeline({repeat: 15, yoyo:true, repeatDelay:0.7})
+    var tl = gsap.timeline({repeat: 30, yoyo:true, repeatDelay:0.7})
     .from(".greet", {y : -180, stagger:1, ease :"back"})
     .to(".greet", {y : 180, stagger:1},1)
 
+/* name-title */
     var nameGrid = document.querySelector(".name-title")
     var nicknames = gsap.utils.toArray(".nickname");
     const loop = horizontalLoop(nicknames, {paused: true, repeat:-1, paddingRight: 15})
-    nameGrid.addEventListener("mouseenter", () => loop.play())
+
+    nameGrid.addEventListener("mouseenter", () => setDirection(-1))
     nameGrid.addEventListener("mouseleave", () => loop.pause())
+
+    function setDirection(value){
+        loop.direction = value
+        gsap.to(loop, {timeScale:value, duration: 0.01, overwrite : true})
+        loop.play()
+    }
+/*end of name-title */
+
+/* slider-title */
+    var progressSlider = gsap.timeline()
+    .to("#progressSlider", {scale:1, repeat: -1, yoyo:true})
+
+    var triggerFrontend = document.querySelector("#trigger-frontend");
+    triggerFrontend.addEventListener("mouseenter", () => progressSlider.pause())
+    triggerFrontend.addEventListener("mouseleave", () => progressSlider.play())
+
+    let frontendSliderAnim = gsap.to(".is-me", {backgroundColor: "#F42E3F"}).pause()
+    var frontendSlider = document.getElementById("progressSlider")
+
+    frontendSlider.addEventListener("input", function () {
+    frontendSliderAnim.progress(this.value).pause();
+    });
+
+    
+/* end of slider-title */
+
 })
+/* ------------------------ end for desktop ----------------------------------------*/
 
 
 /* ------------------------for mobile ----------------------------------------*/
@@ -100,11 +113,44 @@ mm.add("(max-width:600px)", () => {
     .from(".greet", {y : -100, stagger:1, ease :"back"})
     .to(".greet", {y : 100, stagger:1},1)
 
+/* name-title */
     var nicknames = gsap.utils.toArray(".nickname");
-    const loop1 = horizontalLoop(nicknames, {repeat: -1,paddingRight: 7})
-    loop1.play();
+    const loop = horizontalLoop(nicknames, {repeat: -1,paddingRight: 7})
+    gsap.to(loop, {timeScale:-1, duration: 0.01, overwrite : true})
+    loop.play();
+/* end of name-title */
+
+/* frontendtrigger */
+let frontendSliderAnim = gsap.timeline({paused:true}).to(".is-me", {opacity : 1})
+var triggerFrontend = document.querySelector("#trigger-frontend-mobile")
+triggerFrontend.onpointerdown = beginAnimate
+triggerFrontend.onpointerup = stopAnimate
+
+function beginAnimate(e) {
+    triggerFrontend.onpointermove = animate;
+    triggerFrontend.setPointerCapture(e.pointerId);
+  }
+  
+  function stopAnimate(e) {
+    triggerFrontend.onpointermove = null;
+    triggerFrontend.releasePointerCapture(e.pointerId);
+  }
+  
+  function animate(e) {
+    frontendSliderAnim.play();
+  }
+  
+  
+  triggerFrontend.onpointerdown = beginAnimate;
+  triggerFrontend.onpointerup = stopAnimate;
+  
+/* 
+triggerFrontend.addEventListener("mouseenter", frontendSliderAnim.play())
+triggerFrontend.addEventListener("mouseleave", frontendSliderAnim.restart()) */
+
+
+/* end of frontendtrigger */
+
 }) 
-
-
-
+/* ------------------------ end for mobile ----------------------------------------*/
 

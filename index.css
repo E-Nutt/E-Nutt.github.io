@@ -83,6 +83,9 @@ p{
 .is-me{
     grid-area: 3/6/4/span 2 ;
     text-align: center;
+    color: var(--bauyellow);
+    background-color: var(--bauyellow);
+    z-index: 1;
 }
 .looking-job{
     grid-area: 3/2/span 2 / span 3;
@@ -109,6 +112,57 @@ p{
     width: 50rem;
     padding: 0;
 }
+
+/* --------------- this is slider -------------------------*/
+#progressSlider{
+    scale: 1.09;
+    will-change: transform;
+}
+input[type=range] {
+    height: 3rem;
+    -webkit-appearance: none;
+    width: 100%;
+    background-color: black;
+    border: .25rem solid black;
+  }
+  input[type=range]:focus {
+    outline: none;
+  }
+  input[type=range]::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 2.5rem;
+    cursor: pointer;
+    background: var(--bauyellow);
+;
+  }
+  input[type=range]::-webkit-slider-thumb {
+    height: 2rem;
+    width: 2rem;
+    background: var(--baured);
+    cursor: pointer;
+    -webkit-appearance: none;
+    position: relative;
+  }
+  input[type=range]:focus::-webkit-slider-runnable-track {
+    background: var(--bauyellow);
+  }
+  input[type=range]::-moz-range-track {
+    width: 100%;
+    height: 2.5rem;
+    cursor: pointer;
+    background: var(--bauyellow);
+  }
+  input[type=range]::-moz-range-thumb {
+    height: 2rem;
+    width: 2rem;
+    border-radius: 0px;
+    background: var(--baured);
+    cursor: pointer;
+    position: relative;
+  }
+
+  /* --------------- this is end of slider -------------------------*/
+  
 /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 600px) {
     :root{
@@ -170,6 +224,8 @@ p{
         text-align: center;
         padding: .8rem;
         line-break: strict;
+        opacity: 0;
+        background-color: var(--baured);
     }
     .looking-job{
         grid-area: 6/1/span 2 / span 3;
@@ -187,6 +243,9 @@ p{
     .half-alive{
         display: initial;
     }
-
     
+    /* ------------------ animation ----------------------------- */
+    .wrapper{
+        height: 5.7rem;
+    }
   }
