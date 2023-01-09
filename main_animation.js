@@ -88,15 +88,17 @@ mm.add("(min-width:600px)", () => {
 /*end of name-title */
 
 /* slider-title */
+    var circleSlider= gsap.utils.toArray(".circle-for-slider")
+    var frontendSlider = document.getElementById("progressSlider")
     var progressSlider = gsap.timeline()
-    .to("#progressSlider", {scale:1, repeat: -1, yoyo:true})
+    .to(["#progressSlider"], {scale:1, repeat: -1, yoyo:true,})
 
     var triggerFrontend = document.querySelector("#trigger-frontend");
     triggerFrontend.addEventListener("mouseenter", () => progressSlider.pause())
     triggerFrontend.addEventListener("mouseleave", () => progressSlider.play())
 
     let frontendSliderAnim = gsap.to(".is-me", {backgroundColor: "#F42E3F"}).pause()
-    var frontendSlider = document.getElementById("progressSlider")
+
 
     frontendSlider.addEventListener("input", function () {
     frontendSliderAnim.progress(this.value).pause();
@@ -123,13 +125,12 @@ mm.add("(max-width:600px)", () => {
 /* end of name-title */
 
 /* frontendtrigger */
-let frontendSliderAnim = gsap.timeline({paused:true}).to(".is-me", {backgroundColor:"#F42E3F"})
+let frontendSliderAnim = gsap.timeline({paused:true}).to(".is-me", {backgroundColor:"#F42E3F", duration:2})
 var triggerFrontend = document.querySelector("#trigger-frontend-mobile")
 triggerFrontend.onpointerdown = beginAnimate
 triggerFrontend.onpointerup = stopAnimate
 
 function beginAnimate() {
-    frontendSliderAnim.progress(this.value).pause();
     frontendSliderAnim.play();
   }
   
