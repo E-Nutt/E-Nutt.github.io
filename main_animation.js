@@ -1,3 +1,4 @@
+gsap.registerPlugin(TextPlugin, Observer, ScrollTrigger,CustomEase,EasePack, EaselPlugin)
 /* -----------------------------------function helper---------------------------- */ 
    function horizontalLoop(items, config) {
 	items = gsap.utils.toArray(items);
@@ -90,12 +91,14 @@ mm.add("(min-width:600px)", () => {
 /* slider-title */
     var circleSlider= gsap.utils.toArray(".circle-for-slider")
     var frontendSlider = document.getElementById("progressSlider")
-    var progressSlider = gsap.timeline()
-    .to(["#progressSlider"], {scale:1, repeat: -1, yoyo:true,})
+    
 
-    var triggerFrontend = document.querySelector("#trigger-frontend");
-    triggerFrontend.addEventListener("mouseenter", () => progressSlider.pause())
-    triggerFrontend.addEventListener("mouseleave", () => progressSlider.play())
+    var arrowSlider = gsap.timeline({repeat: -1})
+        .to(".circle-for-slider",{ borderLeft: "1rem solid #F42E3F",
+        borderTop: "0.5rem solid transparent"
+        , borderBottom: "0.5rem solid transparent",
+        stagger:0.5})
+
 
     let frontendSliderAnim = gsap.to(".is-me", {backgroundColor: "#F42E3F"}).pause()
 
@@ -125,13 +128,14 @@ mm.add("(max-width:600px)", () => {
 /* end of name-title */
 
 /* frontendtrigger */
-let frontendSliderAnim = gsap.timeline({paused:true}).to(".is-me", {backgroundColor:"#F42E3F", duration:2})
+let frontendSliderAnim = gsap.timeline({paused:true}).to(".is-me", {backgroundColor:"#F42E3F", duration:0.5})
 var triggerFrontend = document.querySelector("#trigger-frontend-mobile")
 triggerFrontend.onpointerdown = beginAnimate
 triggerFrontend.onpointerup = stopAnimate
 
 function beginAnimate() {
     frontendSliderAnim.play();
+    
   }
   
   function stopAnimate() {

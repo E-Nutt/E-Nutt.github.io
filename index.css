@@ -120,11 +120,6 @@ p{
 }
 
 /* --------------- this is slider -------------------------*/
-#progressSlider{
-    scale: 1.09;
-    will-change: transform;
-    position:absolute
-}
 input[type=range]  {
     height: 3rem;
     -webkit-appearance: none;
@@ -174,15 +169,14 @@ input[type=range]  {
     display: flex;
     position: absolute;
     justify-content: space-evenly;
-    left: 3rem;
+    left: 3.3rem;
 }
 .circle-for-slider{
     width: 0;
 	height: 0;
 	border-top: 0.5rem solid transparent;
-	border-left: 1rem solid var(--baured);;
+	border-left: 1rem solid var(--bauyellow);
 	border-bottom: 0.5rem solid transparent;
-    will-change: transform;
 }
   /* --------------- this is end of slider -------------------------*/
   
