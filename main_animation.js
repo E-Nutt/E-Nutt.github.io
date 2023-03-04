@@ -1,4 +1,5 @@
-gsap.registerPlugin(TextPlugin, Observer, ScrollTrigger,CustomEase,EasePack, EaselPlugin)
+gsap.registerPlugin(TextPlugin, Observer, ScrollTrigger,CustomEase,EasePack, EaselPlugin);
+
 /* -----------------------------------function helper---------------------------- */ 
    function horizontalLoop(items, config) {
 	items = gsap.utils.toArray(items);
@@ -57,9 +58,7 @@ gsap.registerPlugin(TextPlugin, Observer, ScrollTrigger,CustomEase,EasePack, Eas
 	}
 	return tl;
 }
-/* ----------------------------- end function helper ---------------------------*/
-
-
+/* ----------------------------- end function helper ---------------------------*/ 	
     
 gsap.set([".greet"], {autoAlpha:1})
 
@@ -76,7 +75,7 @@ mm.add("(min-width:600px)", () => {
 /* name-title */
     var nameGrid = document.querySelector(".name-title")
     var nicknames = gsap.utils.toArray(".nickname");
-    const loop = horizontalLoop(nicknames, {paused: true, repeat:-1, paddingRight: 15})
+    const loop = horizontalLoop(nicknames, {paused: true, repeat:-1, marginRight: 15})
 
     nameGrid.addEventListener("mouseenter", () => setDirection(-1))
     nameGrid.addEventListener("mouseleave", () => loop.pause())
@@ -95,8 +94,8 @@ mm.add("(min-width:600px)", () => {
 
     var arrowSlider = gsap.timeline({repeat: -1})
         .to(".circle-for-slider",{ borderLeft: "1rem solid #F42E3F",
-        borderTop: "0.5rem solid transparent"
-        , borderBottom: "0.5rem solid transparent",
+        borderTop: "0.5rem solid transparent",
+        borderBottom: "0.5rem solid transparent",
         stagger:0.5})
 
 
