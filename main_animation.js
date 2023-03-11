@@ -1,6 +1,6 @@
 gsap.registerPlugin(TextPlugin, Observer, ScrollTrigger,CustomEase,EasePack, EaselPlugin);
 
-/* -----------------------------------function helper---------------------------- */ 
+/* --------------------------------FUNCTION HELPER START---------------------------- */ 
    function horizontalLoop(items, config) {
 	items = gsap.utils.toArray(items);
 	config = config || {};
@@ -57,91 +57,178 @@ gsap.registerPlugin(TextPlugin, Observer, ScrollTrigger,CustomEase,EasePack, Eas
 	  tl.reverse();
 	}
 	return tl;
-}
-/* ----------------------------- end function helper ---------------------------*/ 	
-    
-gsap.set([".greet"], {autoAlpha:1})
+};
+ 
+
+gsap.set([".greet","based-text", "based-img"], {autoAlpha:1});
+
+/*-------------------GREETING------------------*/
+
+var tl = gsap.timeline({repeat: 30, yoyo:true, repeatDelay:0.7, delay:2})
+.from(".greet", {y : -180, stagger:1, ease :"back"})
+.to(".greet", {y : 180, stagger:1},1)
+
+/*-------------------NICKNAMES------------------*/
+
+const nicknames = gsap.utils.toArray(".nickname");
+const loop = horizontalLoop(nicknames, {repeat: -1,paddingRight: 7})
+gsap.to(loop, {timeScale:-1, duration: 0.01, overwrite : true})
+loop.play();
 
 let mm = gsap.matchMedia();
 
-/* ------------------------for desktop ----------------------------------------*/
-mm.add("(min-width:600px)", () => {
-/* greetings */
-    var tl = gsap.timeline({repeat: 30, yoyo:true, repeatDelay:0.7})
-    .from(".greet", {y : -180, stagger:1, ease :"back"})
-    .to(".greet", {y : 180, stagger:1},1)
-/* end of greetings */
+/* -----------------------------------------------------------------------*/
+/* --------------------------FOR DESKTOP----------------------------------*/
+/* -----------------------------------------------------------------------*/
 
-/* name-title */
-    var nameGrid = document.querySelector(".name-title")
-    var nicknames = gsap.utils.toArray(".nickname");
-    const loop = horizontalLoop(nicknames, {paused: true, repeat:-1, marginRight: 15})
+mm.add("(min-width:752px)", () => {
 
-    nameGrid.addEventListener("mouseenter", () => setDirection(-1))
-    nameGrid.addEventListener("mouseleave", () => loop.pause())
+/*----------------------FRONTEND----------------------*/
+let b = 0,
+	timer,
+	snap = gsap.utils.snap(0.01);
 
-    function setDirection(value){
-        loop.direction = value
-        gsap.to(loop, {timeScale:value, duration: 0.01, overwrite : true})
-        loop.play()
-    }
-/*end of name-title */
-
-/* slider-title */
-    var circleSlider= gsap.utils.toArray(".circle-for-slider")
-    var frontendSlider = document.getElementById("progressSlider")
-    
-
-    var arrowSlider = gsap.timeline({repeat: -1})
-        .to(".circle-for-slider",{ borderLeft: "1rem solid #F42E3F",
-        borderTop: "0.5rem solid transparent",
-        borderBottom: "0.5rem solid transparent",
-        stagger:0.5})
-
-
-    let frontendSliderAnim = gsap.to(".is-me", {backgroundColor: "#F42E3F"}).pause()
-
-
-    frontendSlider.addEventListener("input", function () {
-    frontendSliderAnim.progress(this.value).pause();
-    });
-
-    
-/* end of slider-title */
-
+const frontEnd = gsap.timeline({paused:true})
+.to(".content-cover-isme",{
+	yPercent:100,
+	ease: "power3.inOut",
+	duration:1
 })
-/* ------------------------ end for desktop ----------------------------------------*/
+	.from (".is-text", {
+		autoAlpha:snap,
+		scale:0,
+		transformOrigin:"center bottom",
+		modifiers:{
+			snap:b
+		}
+	},"<+0.4");
+	Observer.create({
+		target: ".trigger-frontend",
+		onPress: function continueTick() {
+			b +=0.7;
+			timer = setTimeout(continueTick,200)
+			frontEnd.play()
+		},
+		onRelease: function timeoutClear(){
+			clearTimeout(timer)
+			b = 0;
+			frontEnd.reverse()
+		}
+	})
 
+/*--------------------LOOKING-JOB----------------------*/
+	let lookingJob = gsap.timeline({paused:true})
+	.to(".content-cover-job", {
+		xPercent:100,
+		duration:2,
+		ease:"back.inOut(2)"
+	})
+	.to(".aslay", {
+		text:"just finished my bachelor's degree and currently looking for both  job and collaborative project", 
+		duration:5, 
+	});
 
-/* ------------------------for mobile ----------------------------------------*/
-mm.add("(max-width:600px)", () => {
-    var tl = gsap.timeline({repeat: 15, yoyo:true, repeatDelay:0.7, autoAlpha:1})
-    .from(".greet", {y : -100, stagger:1, ease :"back"})
-    .to(".greet", {y : 100, stagger:1},1)
+	Observer.create({
+		target:".job-trigger",
+		onClick: () => lookingJob.play(),
+		onStop: () => lookingJob.reverse(1.5),
+		onStopDelay: 15,
+	});
 
-/* name-title */
-    var nicknames = gsap.utils.toArray(".nickname");
-    const loop = horizontalLoop(nicknames, {repeat: -1,paddingRight: 7})
-    gsap.to(loop, {timeScale:-1, duration: 0.01, overwrite : true})
-    loop.play();
-/* end of name-title */
+	/*----------------------------BASED CITY------------------------*/
+	let basedCity = gsap.timeline({paused:true, defaults:{ duration:1}})
+		.to(".content-cover-city", {yPercent:120, ease:"back.inOut(2)"})
+		.to(".based-img", {autoAlpha:0, scale:0, transformOrigin:"center bottom", ease:"elastic.in(0.5,0.5)"},"<+0.5")
+		.from(".based-text", {autoAlpha:0, scaleY:0, transformOrigin: "center bottom", ease:"elastic.out(1.1,0.4)"},);
 
-/* frontendtrigger */
-let frontendSliderAnim = gsap.timeline({paused:true}).to(".is-me", {backgroundColor:"#F42E3F", duration:0.5})
-var triggerFrontend = document.querySelector("#trigger-frontend-mobile")
-triggerFrontend.onpointerdown = beginAnimate
-triggerFrontend.onpointerup = stopAnimate
+		Observer.create({
+			target: ".city-trigger",
+			onClick: () => basedCity.play(),
+			onStopDelay: 10,
+			onStop: () => basedCity.reverse()
+		})
 
-function beginAnimate() {
-    frontendSliderAnim.play();
-    
+		return ()=>{
+			loop.revert()
+		  }
+	});
+
+/* ---------------------------------------------------------------------------------*/
+/* --------------------------------FOR MOBILE --------------------------------------*/
+/* ---------------------------------------------------------------------------------*/
+
+mm.add("(max-width:750px)", () => {
+
+/*-------------------FRONTENDTRIGGER------------------*/
+let a = 0,
+	timer;
+	snap = gsap.utils.snap(0.7)
+	const isMe = gsap.timeline({paused:true})
+	.to(".content-cover-isme",{
+		xPercent:100,
+		ease: "power3.inOut",
+		duration:.5
+	})
+	.from(".is-text", {
+		autoAlpha:a,
+		scale:0,
+		transformOrigin:"left center",
+		ease:"power1.inOut",
+		modifiers:{
+			autoAlpha:snap
+		}
+	},"<+0.1")
+Observer.create({
+		target: ".press-and-hold",
+		onPress: function continueTick() {
+			a +=0.7;
+			timer = setTimeout(continueTick,200)
+			isMe.play()
+		},
+		onRelease: function timeoutClear(){
+			clearTimeout(timer)
+			a = 0;
+			isMe.reverse()
+		}
+	})
+
+	
+/*--------------------LOOKING-JOB----------------------*/
+
+	let lookingJob = gsap.timeline({paused:true})
+	.to(".content-cover-job", {
+		xPercent:100,
+		duration:2,
+		ease:"back.inOut(2)"
+	})
+	.to(".aslay", {
+		text:"just finished my bachelor's degree and currently looking for both  job and collaborative project", 
+		duration:5, 
+	});  
+
+	Observer.create({
+		target:".job-trigger-mobile",
+		onClick: () => lookingJob.play(),
+		onStop: () => lookingJob.reverse(1.5),
+		onStopDelay:15
+	})
+
+/*----------------------BASED CITY-----------------------*/
+
+	let basedCity = gsap.timeline({paused:true, defaults:{ duration:1}})
+		.to(".content-cover-city", {yPercent:120, ease:"back.inOut(2)"})
+		.to(".based-img", {autoAlpha:0, scale:0, transformOrigin:"center bottom", ease:"elastic.in(0.5,0.5)"},"<+0.3")
+		.from(".based-text", {autoAlpha:0, scaleY:0, transformOrigin: "center bottom", ease:"elastic.out(1.1,0.4)"},);
+
+		Observer.create({
+			target: ".city-trigger-mobile",
+			onClick: () => basedCity.play(),
+			onStopDelay: 10,
+			onStop: () => basedCity.reverse()
+		})
+  return ()=>{
+	loop.revert()
   }
-  
-  function stopAnimate() {
-  frontendSliderAnim.reverse()
-  }
-  
-/* end of frontendtrigger */
-}) 
+}); 
 /* ------------------------ end for mobile ----------------------------------------*/
 
